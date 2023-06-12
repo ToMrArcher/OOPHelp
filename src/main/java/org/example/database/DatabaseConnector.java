@@ -34,6 +34,23 @@ public class DatabaseConnector {
 
     }
 
+    public User getUser(String username) throws SQLException {
+        Connection connection = createConnection();
+
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM user WHERE username = (?)"
+        );
+        statement.setString(1, username);
+        ResultSet resultSet = statement.executeQuery();
+
+        if(resultSet.next()){
+            return new User(resultSet.getString("username"));
+        }
+
+        return null;
+
+    }
+
     public void addUser(User user) throws SQLException {
 
         Connection connection = createConnection();
@@ -44,6 +61,24 @@ public class DatabaseConnector {
         statement.setString(1, user.getUsername());
 
         statement.executeUpdate();
+
+        connection.close();
+
+    }
+
+    public User addOrRetrieve(String username) throws SQLException {
+
+        User user = getUser(username);
+
+        if(user != null){
+            return user;
+        }else{
+            user = new User(username);
+            addUser(user);
+            return user;
+        }
+
+
 
     }
 

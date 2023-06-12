@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.app.App;
 import org.example.database.DatabaseConnector;
 import org.example.model.User;
 
@@ -27,14 +28,8 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        DatabaseConnector databaseConnector = new DatabaseConnector();
-
-        System.out.println("Enter username of user to be added:");
-        Scanner scanner = new Scanner(System.in);
-        String usernameInput = scanner.nextLine();
-        User user = new User(usernameInput);
-
-        databaseConnector.addUser(user);
+        App app = new App();
+        app.start();
 
     }
 }
