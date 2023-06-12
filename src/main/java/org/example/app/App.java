@@ -3,7 +3,9 @@ package org.example.app;
 import org.example.database.DatabaseConnector;
 import org.example.model.User;
 
+import java.sql.Array;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -28,12 +30,13 @@ public class App {
                 String username = scanner.nextLine();
                 loggedInUser = databaseConnector.addOrRetrieve(username);
             }else{
-                System.out.println(".");
+                ArrayList<QuizGame> quizGames = databaseConnector.getAllQuizzes();
+                for(int i = 0; i < quizGames.size(); i++){
+                    System.out.println(quizGames.get(i).getQuizName());
+                }
+                scanner.nextLine();
             }
 
         }
-
-        databaseConnector.addUser(user);
-
     }
 }

@@ -1,5 +1,6 @@
 package org.example.database;
 
+import org.example.app.QuizGame;
 import org.example.model.User;
 
 import java.sql.*;
@@ -88,4 +89,39 @@ public class DatabaseConnector {
 
     }
 
+    public String getQuizName(int id) throws SQLException {
+
+        Connection connection = createConnection();
+
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM quiz WHERE id = (?)");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
+            return resultSet.getString("quiz_name");
+        }
+        return null;
+    }
+
+    public ArrayList<QuizGame> getAllQuizzes() throws SQLException {
+
+        Connection connection = createConnection();
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM quiz");
+
+        ArrayList<QuizGame> quizGames = new ArrayList<>();
+
+        while(resultSet.next()){
+            QuizGame quizGame = new QuizGame(
+                    resultSet.getString("quiz_name")
+            );
+
+            quizGames.add(quizGame);
+        }
+
+        connection.close();
+
+        return quizGames;
+
+    }
 }
