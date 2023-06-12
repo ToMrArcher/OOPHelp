@@ -112,8 +112,10 @@ public class DatabaseConnector {
         ArrayList<QuizGame> quizGames = new ArrayList<>();
 
         while(resultSet.next()){
+            int id = resultSet.getInt("id");
             QuizGame quizGame = new QuizGame(
                     resultSet.getString("quiz_name")
+                    getAllQuestionsByQuizId(id)
             );
 
             quizGames.add(quizGame);
@@ -122,6 +124,12 @@ public class DatabaseConnector {
         connection.close();
 
         return quizGames;
+
+    }
+
+    private Object getAllQuestionsByQuizId(int id) {
+
+
 
     }
 }

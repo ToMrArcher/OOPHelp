@@ -12,15 +12,13 @@ public class QuizGame {
     private String quizName;
     private int score;
 
-    public QuizGame(String quizName) {
-        this.questions = new ArrayList<>();
+    public QuizGame(String quizName, ArrayList<Question> questions) {
+        this.quizName = quizName;
+        this.questions = questions;
     }
 
     public void start(int id) throws SQLException {
-
-        DatabaseConnector databaseConnector = new DatabaseConnector();
-        quizName = databaseConnector.getQuizName(id);
-        System.out.println(quizName);
+        score = 0;
 
     }
 
