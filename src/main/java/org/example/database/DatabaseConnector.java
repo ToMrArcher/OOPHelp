@@ -38,6 +38,13 @@ public class DatabaseConnector {
 
         Connection connection = createConnection();
 
+        String sql = "INSERT INTO user (username) VALUES (?)";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, user.getUsername());
+
+        statement.executeUpdate();
+
     }
 
     private Connection createConnection() throws SQLException {

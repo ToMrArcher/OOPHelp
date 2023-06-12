@@ -36,7 +36,5 @@ public class Main {
 
         databaseConnector.addUser(user);
 
-        ArrayList<User> listOfAllUsersWeGotFromTheDatabase = databaseConnector.getAllUsers();
-
     }
 }
